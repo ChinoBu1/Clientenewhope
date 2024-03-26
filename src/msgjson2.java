@@ -1,8 +1,8 @@
-public class msg2 {
+public class msgjson2 {
     Poly polynom;
     int[][] hint;
 
-    public msg2(Polynomial x, int[][] hint) {
+    public msgjson2(Polynomial x, int[][] hint) {
         this.polynom = new Poly(x);
         this.hint = hint;
     }

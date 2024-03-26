@@ -1,8 +1,8 @@
-public class msg1 {
+public class msgjson1 {
     Poly polynom;
     byte[] seed;
 
-    public msg1(Polynomial x, byte[] seed) {
+    public msgjson1(Polynomial x, byte[] seed) {
         this.polynom = new Poly(x);
         this.seed = seed;
     }

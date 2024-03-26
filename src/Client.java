@@ -1,5 +1,6 @@
 import org.bouncycastle.util.Arrays;
 
+import proto.msg2;
 import proto.msgproto;
 
 public class Client {
@@ -20,39 +21,77 @@ public class Client {
         }
 
         nh = new NewHope(n, q);
-        byte[] rmessage = client.sendGet();
-        byte[] seed = new byte[32];
+        byte[] seed = nh.generateSeed();
+
+        Polynomial eb = nh.generateBinoPol();
+        Polynomial eb1 = nh.generateBinoPol();
+        Polynomial sb = nh.generateBinoPol();
+        Polynomial m = nh.parseSeed(seed);
+
+        Polynomial pb = Polynomial.PolyModInt(
+                Polynomial.PolyModF(
+                        Polynomial.PolySum(
+                                Polynomial.PolyMult(m, sb),
+                                eb),
+                        nh.getF()),
+                nh.getQ());
+        byte[] rmessage = client.sendSetup(pb, seed);
         Polynomial pa = new Polynomial();
+        int[][] hint = new int[256][4];
         switch (mode) {
             case 0:
-                byte[] paByte = new byte[rmessage.length - 32];
-                System.arraycopy(rmessage, rmessage.length - 32, seed, 0, 32);
-                System.arraycopy(rmessage, 0, paByte, 0, rmessage.length - 32);
+                byte[] paByte = new byte[rmessage.length - 256 * 4 * 4];
+                byte[] hintByte = new byte[256 * 4 * 4];
+                System.arraycopy(rmessage, 0, paByte, 0, paByte.length);
+                System.arraycopy(rmessage, paByte.length, hintByte, 0,
+                        hintByte.length);
                 pa = nh.fromByteArray(paByte);
+
+                for (int i = 0; i < hint.length; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        hint[i][j] = (hintByte[4 * (4 * i + j)] & 0xFF)
+                                |
+                                ((hintByte[4 * (4 * i + j) + 1]
+                                        & 0xFF) << 8)
+                                | ((hintByte[4 * (4 * i + j)
+                                        + 2]
+                                        & 0xFF) << 16)
+                                | ((hintByte[4 * (4 * i + j)
+                                        + 3]
+                                        & 0xFF) << 24);
+                    }
+                }
                 break;
             case 1:
-                msg1 msg1 = json.msg1FromJson(new String(rmessage));
-                pa = msg1.getPoly();
-                seed = msg1.getSeed();
+                msgjson2 msg2 = json.msg2FromJson(new String(rmessage));
+                pa = msg2.getPoly();
+                hint = msg2.getHint();
                 break;
 
             case 2:
-                proto.msg1 protomsg1 = proto.msg1.parseFrom(rmessage);
-                Long[] temp = protomsg1.getCoefsList().toArray(new Long[0]);
-                long[] coef = new long[temp.length];
-                for (int i = 0; i < temp.length; i++) {
-                    coef[i] = (long) temp[i];
+                proto.msg2 protomsg2 = proto.msg2.parseFrom(rmessage);
+                Long[] temp2 = protomsg2.getCoefsList().toArray(new Long[0]);
+                long[] coef = new long[temp2.length];
+                for (int i = 0; i < temp2.length; i++) {
+                    coef[i] = (long) temp2[i];
                 }
+
                 pa = new Polynomial(coef);
-                seed = protomsg1.getSeed().toByteArray();
+                Integer[] temp4 = protomsg2.getHintsList().toArray(new Integer[0]);
+                int[] hintTemp = new int[temp4.length];
+                for (int i = 0; i < temp4.length; i++) {
+                    hintTemp[i] = (int) temp4[i];
+                }
+                for (int i = 0; i < hintTemp.length / 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        hint[i][j] = hintTemp[4 * i + j];
+                    }
+                }
                 break;
 
             default:
                 break;
         }
-
-        Polynomial sb = nh.generateBinoPol();
-        Polynomial eb1 = nh.generateBinoPol();
 
         Polynomial Kb = Polynomial.PolyModInt(
                 Polynomial.PolyModF(
@@ -62,23 +101,11 @@ public class Client {
                         nh.getF()),
                 nh.getQ());
 
-        Polynomial m = nh.parseSeed(seed);
-
-        Polynomial eb = nh.generateBinoPol();
-        Polynomial pb = Polynomial.PolyModInt(
-                Polynomial.PolyModF(
-                        Polynomial.PolySum(
-                                Polynomial.PolyMult(m, sb),
-                                eb),
-                        nh.getF()),
-                nh.getQ());
-        int[][] hint = nh.hint(Kb);
-
         int[] SK = nh.Rec(Kb, hint);
         byte[] K = nh.toByte(SK);
 
-        byte[] Ka = client.sendPost(pb, hint);
-
-        System.out.println(Arrays.areEqual(K, Ka));
+        for (byte b : K) {
+            System.out.print(b + " ");
+        }
     }
 }
