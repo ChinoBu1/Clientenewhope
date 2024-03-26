@@ -1,62 +1,53 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.security.MessageDigest;
-import java.util.Base64;
+import org.bouncycastle.util.Arrays;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
+import proto.msgproto;
 
 public class Client {
-    private static Socket conection;
-    private static DataInputStream input;
-    private static DataOutputStream output;
-    private static NewHope nh;
     static final int PORT = 8888;
 
     public static void main(String[] args) throws Exception {
-        long start = System.currentTimeMillis();
-        if (args.length == 1) {
-            conection = new Socket(InetAddress.getLocalHost(), PORT);
-        } else {
-            conection = new Socket(InetAddress.getByName(args[1]), Integer.parseInt(args[2]));
-        }
+        HTTPClient client;
+        JSON json = new JSON();
+        NewHope nh;
+        int n = Integer.parseInt(args[1]);
+        int q = Integer.parseInt(args[2]);
         int mode = Integer.parseInt(args[0]);
-        nh = new NewHope();
+        if (args.length == 3) {
+            client = new HTTPClient(mode, n, q,
+                    "localhost", PORT);
+        } else {
+            client = new HTTPClient(mode, n, q, args[3], Integer.parseInt(args[4]));
+        }
 
-        input = new DataInputStream(conection.getInputStream());
-        output = new DataOutputStream(conection.getOutputStream());
-        sendData(new byte[] { (byte) mode });
-        byte[] rmessage = reciveData();
-        byte[] seed;
-        byte[] paByte;
-        Polynomial pa;
+        nh = new NewHope(n, q);
+        byte[] rmessage = client.sendGet();
+        byte[] seed = new byte[32];
+        Polynomial pa = new Polynomial();
         switch (mode) {
             case 0:
-                seed = new byte[32];
-                paByte = new byte[rmessage.length - 32];
+                byte[] paByte = new byte[rmessage.length - 32];
                 System.arraycopy(rmessage, rmessage.length - 32, seed, 0, 32);
                 System.arraycopy(rmessage, 0, paByte, 0, rmessage.length - 32);
                 pa = nh.fromByteArray(paByte);
                 break;
             case 1:
-                String json = new String(rmessage);
-                String json_Polynom = json.substring(json.indexOf("{", 1), json.indexOf("}", 1) + 1);
-                String json_seed = json.substring(json.indexOf("[", json_Polynom.length()),
-                        json.indexOf("]", json_Polynom.length()) + 1);
-                pa = JSON.ParsePoly(json_Polynom);
-                seed = JSON.ParseSeed(json_seed);
+                msg1 msg1 = json.msg1FromJson(new String(rmessage));
+                pa = msg1.getPoly();
+                seed = msg1.getSeed();
+                break;
+
+            case 2:
+                proto.msg1 protomsg1 = proto.msg1.parseFrom(rmessage);
+                Long[] temp = protomsg1.getCoefsList().toArray(new Long[0]);
+                long[] coef = new long[temp.length];
+                for (int i = 0; i < temp.length; i++) {
+                    coef[i] = (long) temp[i];
+                }
+                pa = new Polynomial(coef);
+                seed = protomsg1.getSeed().toByteArray();
                 break;
 
             default:
-                seed = new byte[32];
-                paByte = new byte[rmessage.length - 32];
-                System.arraycopy(rmessage, rmessage.length - 32, seed, 0, 32);
-                System.arraycopy(rmessage, 0, paByte, 0, rmessage.length - 32);
-                pa = nh.fromByteArray(paByte);
                 break;
         }
 
@@ -82,84 +73,12 @@ public class Client {
                         nh.getF()),
                 nh.getQ());
         int[][] hint = nh.hint(Kb);
-        byte[] hintByte;
-        byte[] pbByte;
-        byte[] message;
-        switch (mode) {
-            case 0:
-                hintByte = new byte[hint.length * 4 * 4];
-                for (int i = 0; i < hint.length; i++) {
-                    for (int j = 0; j < hint[i].length; j++) {
-                        hintByte[4 * (4 * i + j)] = (byte) (hint[i][j]);
-                        hintByte[4 * (4 * i + j) + 1] = (byte) (hint[i][j] >> 8);
-                        hintByte[4 * (4 * i + j) + 2] = (byte) (hint[i][j] >> 16);
-                        hintByte[4 * (4 * i + j) + 3] = (byte) (hint[i][j] >> 24);
-                    }
-                }
-                pbByte = nh.toByteArray(pb);
-                message = new byte[pbByte.length + hintByte.length];
-                System.arraycopy(pbByte, 0, message, 0, pbByte.length);
-                System.arraycopy(hintByte, 0, message, pbByte.length, hintByte.length);
-                break;
-            case 1:
-                String json = "[" + JSON.json(pb) + ", " + JSON.json(hint) + "]";
-                message = json.getBytes();
-                break;
 
-            default:
-                hintByte = new byte[hint.length * 4 * 4];
-                for (int i = 0; i < hint.length; i++) {
-                    for (int j = 0; j < hint[i].length; j++) {
-                        hintByte[4 * (4 * i + j)] = (byte) (hint[i][j]);
-                        hintByte[4 * (4 * i + j) + 1] = (byte) (hint[i][j] >> 8);
-                        hintByte[4 * (4 * i + j) + 2] = (byte) (hint[i][j] >> 16);
-                        hintByte[4 * (4 * i + j) + 3] = (byte) (hint[i][j] >> 24);
-                    }
-                }
-                pbByte = nh.toByteArray(pb);
-                message = new byte[pbByte.length + hintByte.length];
-                System.arraycopy(pbByte, 0, message, 0, pbByte.length);
-                System.arraycopy(hintByte, 0, message, pbByte.length, hintByte.length);
-                break;
-        }
-
-        sendData(message);
         int[] SK = nh.Rec(Kb, hint);
         byte[] K = nh.toByte(SK);
-        MessageDigest ms = MessageDigest.getInstance("SHA3-256");
-        byte[] Key = ms.digest(K);
 
-        SecretKey sk = new SecretKeySpec(Key, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, sk);
-        byte[] secret = reciveData();
-        conection.close();
-        byte[] decode = Base64.getDecoder().decode(secret);
-        byte[] decrypt = new byte[0];
-        try {
-            decrypt = cipher.doFinal(decode);
-            System.out.println(new String(decrypt));
-        } catch (Exception e) {
-            System.out.println("Fail");
-        }
-        if ("Test".equals(new String(decrypt))) {
+        byte[] Ka = client.sendPost(pb, hint);
 
-            long finish = System.currentTimeMillis();
-            System.out.println("Succes in " + (finish - start) + " ms");
-        }
-
+        System.out.println(Arrays.areEqual(K, Ka));
     }
-
-    public static void sendData(byte[] bytes) throws IOException {
-        output.writeInt(bytes.length);
-        output.write(bytes);
-        output.flush();
-    }
-
-    public static byte[] reciveData() throws IOException {
-        byte[] message = new byte[input.readInt()];
-        input.readFully(message);
-        return message;
-    }
-
 }
