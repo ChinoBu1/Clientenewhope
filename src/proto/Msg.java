@@ -4,8 +4,8 @@
 
 package proto;
 
-public final class msgproto {
-  private msgproto() {}
+public final class Msg {
+  private Msg() {}
   static {
     com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
       com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
@@ -13,7 +13,7 @@ public final class msgproto {
       /* minor= */ 26,
       /* patch= */ 0,
       /* suffix= */ "",
-      msgproto.class.getName());
+      Msg.class.getName());
   }
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
@@ -25,15 +25,15 @@ public final class msgproto {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_msg_msg1_descriptor;
+    internal_static_msg_protoRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_msg_msg1_fieldAccessorTable;
+      internal_static_msg_protoRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_msg_msg2_descriptor;
+    internal_static_msg_protoResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_msg_msg2_fieldAccessorTable;
+      internal_static_msg_protoResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -43,25 +43,26 @@ public final class msgproto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tmsg.proto\022\003msg\"#\n\004msg1\022\r\n\005coefs\030\001 \003(\003\022" +
-      "\014\n\004seed\030\002 \001(\014\"$\n\004msg2\022\r\n\005coefs\030\001 \003(\003\022\r\n\005" +
-      "hints\030\002 \003(\005B\023\n\005protoB\010msgprotoP\001b\006proto3"
+      "\n\tmsg.proto\022\003msg\"+\n\014protoRequest\022\r\n\005coef" +
+      "s\030\001 \003(\003\022\014\n\004seed\030\002 \001(\014\"-\n\rprotoResponse\022\r" +
+      "\n\005coefs\030\001 \003(\003\022\r\n\005hints\030\002 \003(\005B\t\n\005protoP\001b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_msg_msg1_descriptor =
+    internal_static_msg_protoRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_msg_msg1_fieldAccessorTable = new
+    internal_static_msg_protoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_msg_msg1_descriptor,
+        internal_static_msg_protoRequest_descriptor,
         new java.lang.String[] { "Coefs", "Seed", });
-    internal_static_msg_msg2_descriptor =
+    internal_static_msg_protoResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_msg_msg2_fieldAccessorTable = new
+    internal_static_msg_protoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_msg_msg2_descriptor,
+        internal_static_msg_protoResponse_descriptor,
         new java.lang.String[] { "Coefs", "Hints", });
     descriptor.resolveAllFeaturesImmutable();
   }

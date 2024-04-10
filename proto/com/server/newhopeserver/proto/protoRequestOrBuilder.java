@@ -2,10 +2,10 @@
 // source: msg.proto
 
 // Protobuf Java Version: 4.26.0
-package proto;
+package com.server.newhopeserver.proto;
 
-public interface msg1OrBuilder extends
-    // @@protoc_insertion_point(interface_extends:msg.msg1)
+public interface protoRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:msg.protoRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**

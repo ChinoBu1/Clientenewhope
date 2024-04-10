@@ -5,12 +5,12 @@
 package proto;
 
 /**
- * Protobuf type {@code msg.msg2}
+ * Protobuf type {@code msg.protoRequest}
  */
-public final class msg2 extends
+public final class protoRequest extends
     com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:msg.msg2)
-    msg2OrBuilder {
+    // @@protoc_insertion_point(message_implements:msg.protoRequest)
+    protoRequestOrBuilder {
 private static final long serialVersionUID = 0L;
   static {
     com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -19,28 +19,28 @@ private static final long serialVersionUID = 0L;
       /* minor= */ 26,
       /* patch= */ 0,
       /* suffix= */ "",
-      msg2.class.getName());
+      protoRequest.class.getName());
   }
-  // Use msg2.newBuilder() to construct.
-  private msg2(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+  // Use protoRequest.newBuilder() to construct.
+  private protoRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
     super(builder);
   }
-  private msg2() {
+  private protoRequest() {
     coefs_ = emptyLongList();
-    hints_ = emptyIntList();
+    seed_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return proto.msgproto.internal_static_msg_msg2_descriptor;
+    return proto.Msg.internal_static_msg_protoRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return proto.msgproto.internal_static_msg_msg2_fieldAccessorTable
+    return proto.Msg.internal_static_msg_protoRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            proto.msg2.class, proto.msg2.Builder.class);
+            proto.protoRequest.class, proto.protoRequest.Builder.class);
   }
 
   public static final int COEFS_FIELD_NUMBER = 1;
@@ -73,35 +73,16 @@ private static final long serialVersionUID = 0L;
   }
   private int coefsMemoizedSerializedSize = -1;
 
-  public static final int HINTS_FIELD_NUMBER = 2;
-  @SuppressWarnings("serial")
-  private com.google.protobuf.Internal.IntList hints_ =
-      emptyIntList();
+  public static final int SEED_FIELD_NUMBER = 2;
+  private com.google.protobuf.ByteString seed_ = com.google.protobuf.ByteString.EMPTY;
   /**
-   * <code>repeated int32 hints = 2;</code>
-   * @return A list containing the hints.
+   * <code>bytes seed = 2;</code>
+   * @return The seed.
    */
   @java.lang.Override
-  public java.util.List<java.lang.Integer>
-      getHintsList() {
-    return hints_;
+  public com.google.protobuf.ByteString getSeed() {
+    return seed_;
   }
-  /**
-   * <code>repeated int32 hints = 2;</code>
-   * @return The count of hints.
-   */
-  public int getHintsCount() {
-    return hints_.size();
-  }
-  /**
-   * <code>repeated int32 hints = 2;</code>
-   * @param index The index of the element to return.
-   * @return The hints at the given index.
-   */
-  public int getHints(int index) {
-    return hints_.getInt(index);
-  }
-  private int hintsMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -125,12 +106,8 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < coefs_.size(); i++) {
       output.writeInt64NoTag(coefs_.getLong(i));
     }
-    if (getHintsList().size() > 0) {
-      output.writeUInt32NoTag(18);
-      output.writeUInt32NoTag(hintsMemoizedSerializedSize);
-    }
-    for (int i = 0; i < hints_.size(); i++) {
-      output.writeInt32NoTag(hints_.getInt(i));
+    if (!seed_.isEmpty()) {
+      output.writeBytes(2, seed_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -155,19 +132,9 @@ private static final long serialVersionUID = 0L;
       }
       coefsMemoizedSerializedSize = dataSize;
     }
-    {
-      int dataSize = 0;
-      for (int i = 0; i < hints_.size(); i++) {
-        dataSize += com.google.protobuf.CodedOutputStream
-          .computeInt32SizeNoTag(hints_.getInt(i));
-      }
-      size += dataSize;
-      if (!getHintsList().isEmpty()) {
-        size += 1;
-        size += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(dataSize);
-      }
-      hintsMemoizedSerializedSize = dataSize;
+    if (!seed_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBytesSize(2, seed_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -179,15 +146,15 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof proto.msg2)) {
+    if (!(obj instanceof proto.protoRequest)) {
       return super.equals(obj);
     }
-    proto.msg2 other = (proto.msg2) obj;
+    proto.protoRequest other = (proto.protoRequest) obj;
 
     if (!getCoefsList()
         .equals(other.getCoefsList())) return false;
-    if (!getHintsList()
-        .equals(other.getHintsList())) return false;
+    if (!getSeed()
+        .equals(other.getSeed())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -203,53 +170,51 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + COEFS_FIELD_NUMBER;
       hash = (53 * hash) + getCoefsList().hashCode();
     }
-    if (getHintsCount() > 0) {
-      hash = (37 * hash) + HINTS_FIELD_NUMBER;
-      hash = (53 * hash) + getHintsList().hashCode();
-    }
+    hash = (37 * hash) + SEED_FIELD_NUMBER;
+    hash = (53 * hash) + getSeed().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg2 parseFrom(byte[] data)
+  public static proto.protoRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg2 parseFrom(java.io.InputStream input)
+  public static proto.protoRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -257,26 +222,26 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  public static proto.msg2 parseDelimitedFrom(java.io.InputStream input)
+  public static proto.protoRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input);
   }
 
-  public static proto.msg2 parseDelimitedFrom(
+  public static proto.protoRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static proto.msg2 parseFrom(
+  public static proto.protoRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -289,7 +254,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(proto.msg2 prototype) {
+  public static Builder newBuilder(proto.protoRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -305,26 +270,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code msg.msg2}
+   * Protobuf type {@code msg.protoRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:msg.msg2)
-      proto.msg2OrBuilder {
+      // @@protoc_insertion_point(builder_implements:msg.protoRequest)
+      proto.protoRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return proto.msgproto.internal_static_msg_msg2_descriptor;
+      return proto.Msg.internal_static_msg_protoRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return proto.msgproto.internal_static_msg_msg2_fieldAccessorTable
+      return proto.Msg.internal_static_msg_protoRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              proto.msg2.class, proto.msg2.Builder.class);
+              proto.protoRequest.class, proto.protoRequest.Builder.class);
     }
 
-    // Construct using proto.msg2.newBuilder()
+    // Construct using proto.protoRequest.newBuilder()
     private Builder() {
 
     }
@@ -339,24 +304,24 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       coefs_ = emptyLongList();
-      hints_ = emptyIntList();
+      seed_ = com.google.protobuf.ByteString.EMPTY;
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return proto.msgproto.internal_static_msg_msg2_descriptor;
+      return proto.Msg.internal_static_msg_protoRequest_descriptor;
     }
 
     @java.lang.Override
-    public proto.msg2 getDefaultInstanceForType() {
-      return proto.msg2.getDefaultInstance();
+    public proto.protoRequest getDefaultInstanceForType() {
+      return proto.protoRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public proto.msg2 build() {
-      proto.msg2 result = buildPartial();
+    public proto.protoRequest build() {
+      proto.protoRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -364,37 +329,36 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public proto.msg2 buildPartial() {
-      proto.msg2 result = new proto.msg2(this);
+    public proto.protoRequest buildPartial() {
+      proto.protoRequest result = new proto.protoRequest(this);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(proto.msg2 result) {
+    private void buildPartial0(proto.protoRequest result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         coefs_.makeImmutable();
         result.coefs_ = coefs_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        hints_.makeImmutable();
-        result.hints_ = hints_;
+        result.seed_ = seed_;
       }
     }
 
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof proto.msg2) {
-        return mergeFrom((proto.msg2)other);
+      if (other instanceof proto.protoRequest) {
+        return mergeFrom((proto.protoRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(proto.msg2 other) {
-      if (other == proto.msg2.getDefaultInstance()) return this;
+    public Builder mergeFrom(proto.protoRequest other) {
+      if (other == proto.protoRequest.getDefaultInstance()) return this;
       if (!other.coefs_.isEmpty()) {
         if (coefs_.isEmpty()) {
           coefs_ = other.coefs_;
@@ -406,16 +370,8 @@ private static final long serialVersionUID = 0L;
         }
         onChanged();
       }
-      if (!other.hints_.isEmpty()) {
-        if (hints_.isEmpty()) {
-          hints_ = other.hints_;
-          hints_.makeImmutable();
-          bitField0_ |= 0x00000002;
-        } else {
-          ensureHintsIsMutable();
-          hints_.addAll(other.hints_);
-        }
-        onChanged();
+      if (other.getSeed() != com.google.protobuf.ByteString.EMPTY) {
+        setSeed(other.getSeed());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -459,20 +415,9 @@ private static final long serialVersionUID = 0L;
               input.popLimit(limit);
               break;
             } // case 10
-            case 16: {
-              int v = input.readInt32();
-              ensureHintsIsMutable();
-              hints_.addInt(v);
-              break;
-            } // case 16
             case 18: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              ensureHintsIsMutable();
-              while (input.getBytesUntilLimit() > 0) {
-                hints_.addInt(input.readInt32());
-              }
-              input.popLimit(limit);
+              seed_ = input.readBytes();
+              bitField0_ |= 0x00000002;
               break;
             } // case 18
             default: {
@@ -576,107 +521,55 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.Internal.IntList hints_ = emptyIntList();
-    private void ensureHintsIsMutable() {
-      if (!hints_.isModifiable()) {
-        hints_ = makeMutableCopy(hints_);
-      }
-      bitField0_ |= 0x00000002;
-    }
+    private com.google.protobuf.ByteString seed_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>repeated int32 hints = 2;</code>
-     * @return A list containing the hints.
+     * <code>bytes seed = 2;</code>
+     * @return The seed.
      */
-    public java.util.List<java.lang.Integer>
-        getHintsList() {
-      hints_.makeImmutable();
-      return hints_;
+    @java.lang.Override
+    public com.google.protobuf.ByteString getSeed() {
+      return seed_;
     }
     /**
-     * <code>repeated int32 hints = 2;</code>
-     * @return The count of hints.
-     */
-    public int getHintsCount() {
-      return hints_.size();
-    }
-    /**
-     * <code>repeated int32 hints = 2;</code>
-     * @param index The index of the element to return.
-     * @return The hints at the given index.
-     */
-    public int getHints(int index) {
-      return hints_.getInt(index);
-    }
-    /**
-     * <code>repeated int32 hints = 2;</code>
-     * @param index The index to set the value at.
-     * @param value The hints to set.
+     * <code>bytes seed = 2;</code>
+     * @param value The seed to set.
      * @return This builder for chaining.
      */
-    public Builder setHints(
-        int index, int value) {
-
-      ensureHintsIsMutable();
-      hints_.setInt(index, value);
+    public Builder setSeed(com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      seed_ = value;
       bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>repeated int32 hints = 2;</code>
-     * @param value The hints to add.
+     * <code>bytes seed = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder addHints(int value) {
-
-      ensureHintsIsMutable();
-      hints_.addInt(value);
-      bitField0_ |= 0x00000002;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated int32 hints = 2;</code>
-     * @param values The hints to add.
-     * @return This builder for chaining.
-     */
-    public Builder addAllHints(
-        java.lang.Iterable<? extends java.lang.Integer> values) {
-      ensureHintsIsMutable();
-      com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, hints_);
-      bitField0_ |= 0x00000002;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated int32 hints = 2;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearHints() {
-      hints_ = emptyIntList();
+    public Builder clearSeed() {
       bitField0_ = (bitField0_ & ~0x00000002);
+      seed_ = getDefaultInstance().getSeed();
       onChanged();
       return this;
     }
 
-    // @@protoc_insertion_point(builder_scope:msg.msg2)
+    // @@protoc_insertion_point(builder_scope:msg.protoRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:msg.msg2)
-  private static final proto.msg2 DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:msg.protoRequest)
+  private static final proto.protoRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new proto.msg2();
+    DEFAULT_INSTANCE = new proto.protoRequest();
   }
 
-  public static proto.msg2 getDefaultInstance() {
+  public static proto.protoRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<msg2>
-      PARSER = new com.google.protobuf.AbstractParser<msg2>() {
+  private static final com.google.protobuf.Parser<protoRequest>
+      PARSER = new com.google.protobuf.AbstractParser<protoRequest>() {
     @java.lang.Override
-    public msg2 parsePartialFrom(
+    public protoRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -695,17 +588,17 @@ private static final long serialVersionUID = 0L;
     }
   };
 
-  public static com.google.protobuf.Parser<msg2> parser() {
+  public static com.google.protobuf.Parser<protoRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<msg2> getParserForType() {
+  public com.google.protobuf.Parser<protoRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public proto.msg2 getDefaultInstanceForType() {
+  public proto.protoRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

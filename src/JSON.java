@@ -7,25 +7,25 @@ public class JSON {
     }
 
     public String ToJson(Polynomial x, byte[] seed) {
-        String json = gson.toJson(new msgjson1(x, seed));
+        String json = gson.toJson(new jsonRequest(x, seed));
         return json;
 
     }
 
     public String ToJson(Polynomial x, int[][] hint) {
-        String json = gson.toJson(new msgjson2(x, hint));
+        String json = gson.toJson(new jsonResponse(x, hint));
         return json;
 
     }
 
-    public msgjson1 msg1FromJson(String json) {
-        msgjson1 msg = gson.fromJson(json, msgjson1.class);
+    public jsonRequest msg1FromJson(String json) {
+        jsonRequest msg = gson.fromJson(json, jsonRequest.class);
         return msg;
 
     }
 
-    public msgjson2 msg2FromJson(String json) {
-        msgjson2 msg = gson.fromJson(json, msgjson2.class);
+    public jsonResponse msg2FromJson(String json) {
+        jsonResponse msg = gson.fromJson(json, jsonResponse.class);
         return msg;
 
     }

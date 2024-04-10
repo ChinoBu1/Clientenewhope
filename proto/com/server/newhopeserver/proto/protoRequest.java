@@ -2,15 +2,15 @@
 // source: msg.proto
 
 // Protobuf Java Version: 4.26.0
-package proto;
+package com.server.newhopeserver.proto;
 
 /**
- * Protobuf type {@code msg.msg1}
+ * Protobuf type {@code msg.protoRequest}
  */
-public final class msg1 extends
+public final class protoRequest extends
     com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:msg.msg1)
-    msg1OrBuilder {
+    // @@protoc_insertion_point(message_implements:msg.protoRequest)
+    protoRequestOrBuilder {
 private static final long serialVersionUID = 0L;
   static {
     com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -19,28 +19,28 @@ private static final long serialVersionUID = 0L;
       /* minor= */ 26,
       /* patch= */ 0,
       /* suffix= */ "",
-      msg1.class.getName());
+      protoRequest.class.getName());
   }
-  // Use msg1.newBuilder() to construct.
-  private msg1(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+  // Use protoRequest.newBuilder() to construct.
+  private protoRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
     super(builder);
   }
-  private msg1() {
+  private protoRequest() {
     coefs_ = emptyLongList();
     seed_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return proto.msgproto.internal_static_msg_msg1_descriptor;
+    return com.server.newhopeserver.proto.Msg.internal_static_msg_protoRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return proto.msgproto.internal_static_msg_msg1_fieldAccessorTable
+    return com.server.newhopeserver.proto.Msg.internal_static_msg_protoRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            proto.msg1.class, proto.msg1.Builder.class);
+            com.server.newhopeserver.proto.protoRequest.class, com.server.newhopeserver.proto.protoRequest.Builder.class);
   }
 
   public static final int COEFS_FIELD_NUMBER = 1;
@@ -146,10 +146,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof proto.msg1)) {
+    if (!(obj instanceof com.server.newhopeserver.proto.protoRequest)) {
       return super.equals(obj);
     }
-    proto.msg1 other = (proto.msg1) obj;
+    com.server.newhopeserver.proto.protoRequest other = (com.server.newhopeserver.proto.protoRequest) obj;
 
     if (!getCoefsList()
         .equals(other.getCoefsList())) return false;
@@ -177,44 +177,44 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg1 parseFrom(byte[] data)
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static proto.msg1 parseFrom(java.io.InputStream input)
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -222,26 +222,26 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  public static proto.msg1 parseDelimitedFrom(java.io.InputStream input)
+  public static com.server.newhopeserver.proto.protoRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input);
   }
 
-  public static proto.msg1 parseDelimitedFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessage
         .parseWithIOException(PARSER, input);
   }
-  public static proto.msg1 parseFrom(
+  public static com.server.newhopeserver.proto.protoRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -254,7 +254,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(proto.msg1 prototype) {
+  public static Builder newBuilder(com.server.newhopeserver.proto.protoRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -270,26 +270,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code msg.msg1}
+   * Protobuf type {@code msg.protoRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:msg.msg1)
-      proto.msg1OrBuilder {
+      // @@protoc_insertion_point(builder_implements:msg.protoRequest)
+      com.server.newhopeserver.proto.protoRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return proto.msgproto.internal_static_msg_msg1_descriptor;
+      return com.server.newhopeserver.proto.Msg.internal_static_msg_protoRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return proto.msgproto.internal_static_msg_msg1_fieldAccessorTable
+      return com.server.newhopeserver.proto.Msg.internal_static_msg_protoRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              proto.msg1.class, proto.msg1.Builder.class);
+              com.server.newhopeserver.proto.protoRequest.class, com.server.newhopeserver.proto.protoRequest.Builder.class);
     }
 
-    // Construct using proto.msg1.newBuilder()
+    // Construct using com.server.newhopeserver.proto.protoRequest.newBuilder()
     private Builder() {
 
     }
@@ -311,17 +311,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return proto.msgproto.internal_static_msg_msg1_descriptor;
+      return com.server.newhopeserver.proto.Msg.internal_static_msg_protoRequest_descriptor;
     }
 
     @java.lang.Override
-    public proto.msg1 getDefaultInstanceForType() {
-      return proto.msg1.getDefaultInstance();
+    public com.server.newhopeserver.proto.protoRequest getDefaultInstanceForType() {
+      return com.server.newhopeserver.proto.protoRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public proto.msg1 build() {
-      proto.msg1 result = buildPartial();
+    public com.server.newhopeserver.proto.protoRequest build() {
+      com.server.newhopeserver.proto.protoRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -329,14 +329,14 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public proto.msg1 buildPartial() {
-      proto.msg1 result = new proto.msg1(this);
+    public com.server.newhopeserver.proto.protoRequest buildPartial() {
+      com.server.newhopeserver.proto.protoRequest result = new com.server.newhopeserver.proto.protoRequest(this);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(proto.msg1 result) {
+    private void buildPartial0(com.server.newhopeserver.proto.protoRequest result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         coefs_.makeImmutable();
@@ -349,16 +349,16 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof proto.msg1) {
-        return mergeFrom((proto.msg1)other);
+      if (other instanceof com.server.newhopeserver.proto.protoRequest) {
+        return mergeFrom((com.server.newhopeserver.proto.protoRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(proto.msg1 other) {
-      if (other == proto.msg1.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.server.newhopeserver.proto.protoRequest other) {
+      if (other == com.server.newhopeserver.proto.protoRequest.getDefaultInstance()) return this;
       if (!other.coefs_.isEmpty()) {
         if (coefs_.isEmpty()) {
           coefs_ = other.coefs_;
@@ -553,23 +553,23 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    // @@protoc_insertion_point(builder_scope:msg.msg1)
+    // @@protoc_insertion_point(builder_scope:msg.protoRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:msg.msg1)
-  private static final proto.msg1 DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:msg.protoRequest)
+  private static final com.server.newhopeserver.proto.protoRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new proto.msg1();
+    DEFAULT_INSTANCE = new com.server.newhopeserver.proto.protoRequest();
   }
 
-  public static proto.msg1 getDefaultInstance() {
+  public static com.server.newhopeserver.proto.protoRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<msg1>
-      PARSER = new com.google.protobuf.AbstractParser<msg1>() {
+  private static final com.google.protobuf.Parser<protoRequest>
+      PARSER = new com.google.protobuf.AbstractParser<protoRequest>() {
     @java.lang.Override
-    public msg1 parsePartialFrom(
+    public protoRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -588,17 +588,17 @@ private static final long serialVersionUID = 0L;
     }
   };
 
-  public static com.google.protobuf.Parser<msg1> parser() {
+  public static com.google.protobuf.Parser<protoRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<msg1> getParserForType() {
+  public com.google.protobuf.Parser<protoRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public proto.msg1 getDefaultInstanceForType() {
+  public com.server.newhopeserver.proto.protoRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

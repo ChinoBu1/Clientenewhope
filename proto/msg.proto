@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package msg;
+
+option java_multiple_files = true;
+option java_package ="com.server.newhopeserver.proto";
+
+message protoRequest {
+    repeated int64 coefs = 1; 
+    bytes seed = 2; 
+}
+
+message protoResponse {
+    repeated int64 coefs = 1; 
+    repeated int32 hints = 2;
+}
+

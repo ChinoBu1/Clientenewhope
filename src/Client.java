@@ -1,23 +1,22 @@
-import org.bouncycastle.util.Arrays;
 
-import proto.msg2;
-import proto.msgproto;
+import java.util.Base64;
+
+import proto.protoResponse;
 
 public class Client {
     static final int PORT = 8888;
 
     public static void main(String[] args) throws Exception {
         HTTPClient client;
-        JSON json = new JSON();
         NewHope nh;
         int n = Integer.parseInt(args[1]);
         int q = Integer.parseInt(args[2]);
         int mode = Integer.parseInt(args[0]);
         if (args.length == 3) {
-            client = new HTTPClient(mode, n, q,
+            client = new HTTPClient(n, q,
                     "localhost", PORT);
         } else {
-            client = new HTTPClient(mode, n, q, args[3], Integer.parseInt(args[4]));
+            client = new HTTPClient(n, q, args[3], Integer.parseInt(args[4]));
         }
 
         nh = new NewHope(n, q);
@@ -35,13 +34,13 @@ public class Client {
                                 eb),
                         nh.getF()),
                 nh.getQ());
-        byte[] rmessage = client.sendSetup(pb, seed);
         Polynomial pa = new Polynomial();
-        int[][] hint = new int[256][4];
+        int[][] hint = new int[n / 4][4];
         switch (mode) {
             case 0:
-                byte[] paByte = new byte[rmessage.length - 256 * 4 * 4];
-                byte[] hintByte = new byte[256 * 4 * 4];
+                byte[] rmessage = client.sendSetup(pb, seed);
+                byte[] paByte = new byte[rmessage.length - n * 4];
+                byte[] hintByte = new byte[n * 4];
                 System.arraycopy(rmessage, 0, paByte, 0, paByte.length);
                 System.arraycopy(rmessage, paByte.length, hintByte, 0,
                         hintByte.length);
@@ -63,13 +62,13 @@ public class Client {
                 }
                 break;
             case 1:
-                msgjson2 msg2 = json.msg2FromJson(new String(rmessage));
+                jsonResponse msg2 = client.sendSetupJson(pb, seed);
                 pa = msg2.getPoly();
                 hint = msg2.getHint();
                 break;
 
             case 2:
-                proto.msg2 protomsg2 = proto.msg2.parseFrom(rmessage);
+                protoResponse protomsg2 = client.sendSetupProto(pb, seed);
                 Long[] temp2 = protomsg2.getCoefsList().toArray(new Long[0]);
                 long[] coef = new long[temp2.length];
                 for (int i = 0; i < temp2.length; i++) {
@@ -92,7 +91,7 @@ public class Client {
             default:
                 break;
         }
-
+        client.close();
         Polynomial Kb = Polynomial.PolyModInt(
                 Polynomial.PolyModF(
                         Polynomial.PolySum(
